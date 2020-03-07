@@ -1,1 +1,1 @@
-# subscriber-the-new-content-provider
+# Subscriber The New Content Provider
