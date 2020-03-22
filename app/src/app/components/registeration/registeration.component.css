@@ -16,7 +16,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     background: transparent;
 }
 body {
-    background: #DCDDDF url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
     font: 14px Arial;
     margin: 0 auto;
     padding: 0;
@@ -45,7 +44,7 @@ form:after {
     clear: both;
     visibility: hidden;
 }
-.container { margin: 0px auto;  background-color: #f1f1f1;}
+.container { margin: 0px auto; padding-top: 20px;}
 #content {
     background: #f9f9f9;
     background: -moz-linear-gradient(top,  rgb(221, 160, 160) 0%, rgba(249,249,249,1) 100%);
@@ -80,7 +79,7 @@ form:after {
     height: 1px;
     position: absolute;
     top: 10px;
-    width: 27%;
+    width: 20%;
 }
 #content h1:after {
     background: rgb(126,126,126);
