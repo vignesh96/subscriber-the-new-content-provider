@@ -5,6 +5,13 @@
     text-align: center;
   }
 
+  body{
+    background-image: url("../../../assets/home_background.jpg");
+    display: inline-block;
+    width: 900px;
+    height: 500px;
+  }
+
   .left-body {
     overflow: hidden;
     background-color: #f1f1f1;
@@ -16,9 +23,7 @@
 
   .right-body {
     overflow: hidden;
-    background-color: #f1f1f1;
-    padding: 20px 10px;
-    margin-top : 10px;
+    padding: 10px 10px;
     width : 45%;
     float: right;
   }
