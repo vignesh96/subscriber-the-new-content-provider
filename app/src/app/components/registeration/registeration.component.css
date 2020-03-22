@@ -102,7 +102,8 @@ form:after {
 
 #content form { margin: 0 20px; position: relative }
 #content form input[type="text"],
-#content form input[type="password"] {
+#content form input[type="password"],
+#content form input[type="email"] {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
@@ -127,7 +128,8 @@ form:after {
     width: 80%;
 }
 #content form input[type="text"]:focus,
-#content form input[type="password"]:focus {
+#content form input[type="password"]:focus,
+#content form input[type="email"]:focus {
     -webkit-box-shadow: 0 0 2px #ed1c24 inset;
     -moz-box-shadow: 0 0 2px #ed1c24 inset;
     -ms-box-shadow: 0 0 2px #ed1c24 inset;
@@ -188,6 +190,12 @@ form:after {
     margin: 30px 15px 0 0;
     text-decoration: underline;
 }
+.error-message {
+    color: red;
+  }
+  input.ng-touched.ng-invalid {
+    border: 1px solid red;
+  }
 .button {
     background: rgb(247,249,250);
     background: -moz-linear-gradient(top,  rgba(247,249,250,1) 0%, rgba(240,240,240,1) 100%);
