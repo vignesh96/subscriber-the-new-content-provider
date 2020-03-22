@@ -16,6 +16,23 @@ function createRouter(db) {
       }
     );
   });
+
+  router.get('/user/:uname', (req, res, next) => {
+      db.query(
+          "SELECT * FROM user WHERE uname = ?",
+          [req.param.uname],
+          (error, results) => {
+              if (error){
+              console.error(error);
+              res.status(500).json({status: 'error'});
+              }
+              else{
+                res.status(200).json(results);
+              }
+            }
+        );
+    });
+    
   return router;
 }
 module.exports = createRouter;
