@@ -3,9 +3,10 @@ function createRouter(db) {
   const router = express.Router();
   // the routes are defined here
   router.post('/user', (req, res, next) => {
+    console.log("Request is " + req);
     db.query(
-      'INSERT INTO user (uname, fname, lname, email, dob, password) VALUES (?,?,?,?,?,?)',
-      [req.body.uname, req.body.fname, req.body.lname, req.body.email,new Date(req.body.dob), req.body.password],
+      'INSERT INTO user (uname, fname, lname, email, dob, password) VALUES (?,?,?,?,STR_TO_DATE(?, "%m/%d/%Y"),?)',
+      [req.user.uname, req.user.fname, req.user.lname, req.user.email, req.user.dob, req.body.password],
       (error) => {
         if (error) {
           console.error(error);

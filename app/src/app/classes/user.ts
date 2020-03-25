@@ -3,6 +3,6 @@ export class User {
     fname: string;
     lname: string;
     email: string;
-    dob: Date;
+    dob: string;
     password: string;
 }

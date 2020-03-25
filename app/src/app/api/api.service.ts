@@ -7,12 +7,15 @@ import { User } from '../classes/user';
 })
 export class ApiService {
 
-  apiURL: string = "https://localhost:8080"
+  apiURL: string = "https://127.0.0.1:8080"
 
   constructor(private httpClient: HttpClient) { }
 
   public createUser(user: User){
-      return this.httpClient.post(`${this.apiURL}/user`, user);
+      console.log(user);
+      var response = this.httpClient.post(this.apiURL + '/user', user);
+      console.log(response);
+      return response
   }
 
   public getUserByUname(uname: string){

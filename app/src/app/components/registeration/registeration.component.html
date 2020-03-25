@@ -8,26 +8,26 @@
         <body>
         <div class="container">
             <section id="content">
-                <form #register="ngForm" (ngSubmit)="createUser(register.value)">
+                <form [formGroup]="register" (ngSubmit)="createUser()">
                     <h1>Registration Form</h1>
                     <div>
-                        <input type="text" placeholder="Username" required="" id="username" name="uname" />
+                        <input type="text" placeholder="Username" id="username" name="uname" formControlName="uname" required/>
                     </div>
                     <div>
-                        <input type="text" placeholder="First Name" required="" id="first" name="fname"/>
+                        <input type="text" placeholder="First Name" required="" id="first" name="fname" formControlName="fname" />
                     </div>
                     <div>
-                        <input type="text" placeholder="Last name" required="" id="last" name="lname"/>
+                        <input type="text" placeholder="Last name" required="" id="last" name="lname" formControlName="lname" />
                     </div>
                     <div>
-                        <input type="email" placeholder="Email" required="" id="email" name="email"/>
+                        <input type="email" placeholder="Email" required="" id="email" name="email" formControlName="email" />
                     </div>
                     <div>
                         <input type="date" placeholder="Date of Birth" required="" id="dob" name="dob" onfocus="(this.type='date')"
-                        onblur="(this.type='text')" />
+                        onblur="(this.type='text')" formControlName="dob" />
                     </div>
                     <div>
-                        <input type="password" placeholder="Password" required="" id="password" minlength="8" name="pass"/>
+                        <input type="password" placeholder="Password" required="" id="password" minlength="8" name="pass" formControlName="password" />
                     </div>
                     <div>
                         <input type="submit" value="Register" />
