@@ -8,13 +8,15 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterationComponent } from './components/registeration/registeration.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VideoUploadComponent } from './components/video-upload/video-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterationComponent
+    RegisterationComponent,
+    VideoUploadComponent
   ],
   imports: [
     BrowserModule,
