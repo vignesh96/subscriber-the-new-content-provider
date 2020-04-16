@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'video.apps.VideoConfig',
     'crispy_forms',
+    's3direct',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

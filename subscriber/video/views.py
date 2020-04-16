@@ -18,3 +18,14 @@ class VideoListView(ListView):
     context_object_name = 'uploads'
     ordering = ['-date_posted']
     paginate_by = 5
+
+def about(request):
+    return render(request, 'video/about.html', context={'title':'About'})
+
+class VideoUploadView(LoginRequiredMixin, CreateView):
+    model = Upload
+    fields = ['title', 'content', 'genre']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
