@@ -10,10 +10,11 @@ class Upload(models.Model):
     genre = models.CharField(max_length=20)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    s3_url = models.CharField(max_length=100)
-    no_of_likes = models.IntegerField()
-    content = models.TextField()
-
+    s3_url = models.CharField(max_length=100, blank=True)
+    no_of_likes = models.IntegerField(default=0)
+    content = models.TextField(default='')
+    video = models.FileField(upload_to='videos')
+    
     def __str__(self):
         return self.title
     

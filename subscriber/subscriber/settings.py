@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from boto3 import Session
+
+session = Session()
+credentials = session.get_credentials()
+# Credentials are refreshable, so accessing your access key / secret key
+# separately can lead to a race condition. Use this to get an actual matched
+# set.
+current_credentials = credentials.get_frozen_credentials()
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,6 +44,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'video.apps.VideoConfig',
     'crispy_forms',
+    'storages',
     's3direct',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,16 +89,9 @@ WSGI_APPLICATION = 'subscriber.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'subscriber',
-        'USER': 'root',
-        'PASSWORD': "root",
-        'HOST': "127.0.0.1",
-        'PORT': "3306",
-        'OPTIONS': {
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -138,3 +142,19 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'main-home'
 
 LOGIN_URL = 'login'
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'subscriber-django'
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+S3DIRECT_DESTINATIONS = {
+    'video_destination': {
+        'key': 'videos/',
+        'allowed': ['video/mkv', 'video/mp4'],
+    },
+}

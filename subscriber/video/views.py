@@ -24,7 +24,7 @@ def about(request):
 
 class VideoUploadView(LoginRequiredMixin, CreateView):
     model = Upload
-    fields = ['title', 'content', 'genre']
+    fields = ['title', 'content', 'genre', 'video']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
