@@ -21,8 +21,8 @@
                 <source src="{{ object.video.url }}" type="video/mkv">
                 Your browser does not support HTML5 video.
             </video>
-            <p><a class='like-btn' data-href='{{ object.get_like_url }}' data-likes='{{ object.likes.count }}' href='{{ object.get_like_url }}'><label id="like_count">{{ object.likes.count }}</label> Like</a>&nbsp;
-                <a class='dislike-btn' data-href='{{ object.get_unlike_url }}' data-likes='{{ object.dislikes.count }}' href='{{ object.get_unlike_url }}'><label id="dislike_count">{{ object.dislikes.count }}</label> Unlike</a>&nbsp;
+            <p><a class='like-btn' data-href='{{ object.get_like_url }}' data-likes='{{ object.likes.count }}' href='{{ object.get_like_url }}'>{{ object.likes.count }} Like</a>&nbsp;
+                <a class='dislike-btn' data-href='{{ object.get_unlike_url }}' data-likes='{{ object.dislikes.count }}' href='{{ object.get_unlike_url }}'>{{ object.dislikes.count }} Unlike</a>&nbsp;
                 {{ object.views }} Views</p>
             <p class="article-content">{{ object.content }}</p>
         </div>

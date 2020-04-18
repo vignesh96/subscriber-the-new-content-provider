@@ -171,10 +171,14 @@
                     <h3>Categories</h3>
                     <p class='text-muted'>
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">User Uploaded Videos</li>
-                            <li class="list-group-item list-group-item-light">Latest Videos</li>
-                            <li class="list-group-item list-group-item-light">Popular Videos</li>
-                            <li class="list-group-item list-group-item-light">Most Viewed Videos</li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{% url 'user-videos' user %}">User Uploaded Videos</a></li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{% url 'main-home' %}">Latest Videos</a></li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{% url 'popular-videos' %}">Popular Videos</a></li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{% url 'most-viewed-videos' %}">Most Viewed Videos</a></li>
                         </ul>
                     </p>
                 </div>
