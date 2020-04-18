@@ -1,0 +1,32 @@
+{% extends 'video/base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="">{{ object.author }}</a>
+                <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                {% if object.author == user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Update</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <video width="600" height="400" controls>
+                <source src="{{ object.video.url }}" type="video/mp4">
+                <source src="{{ object.video.url }}" type="video/mkv">
+                Your browser does not support HTML5 video.
+            </video>
+            <p><a class='like-btn' data-href='{{ object.get_like_url }}' data-likes='{{ object.likes.count }}' href='{{ object.get_like_url }}'><label id="like_count">{{ object.likes.count }}</label> Like</a>&nbsp;
+                <a class='dislike-btn' data-href='{{ object.get_unlike_url }}' data-likes='{{ object.dislikes.count }}' href='{{ object.get_unlike_url }}'><label id="dislike_count">{{ object.dislikes.count }}</label> Unlike</a>&nbsp;
+                {{ object.views }} Views</p>
+            <p class="article-content">{{ object.content }}</p>
+        </div>
+    </article>
+
+{% endif %}
+{% endblock content %}

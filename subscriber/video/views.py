@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Upload
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
 
 def home(request):
     context = {
@@ -29,3 +31,74 @@ class VideoUploadView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class VideoDetailView(DetailView):
+    model = Upload
+
+    def get_object(self, queryset=None):
+        item = super().get_object(queryset)
+        item.incrementViewCount()
+        return item
+
+class VideoLikeAPIToggle(APIView):
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, pk=None, format=None):
+        if request.is_ajax():
+            obj = get_object_or_404(Upload, pk=pk)
+            url_ = obj.get_absolute_url() + "video/{}".format(id)
+            user = self.request.user
+            updated = False
+            liked = False
+            disliked = True
+            if user.is_authenticated:
+                if user in obj.likes.all():
+                    liked = False
+                    obj.likes.remove(user)
+                    
+                else:
+                    liked = True
+                    obj.likes.add(user)
+                    
+                    if user in obj.dislikes.all():
+                        obj.dislikes.remove(user)
+                        disliked = False
+                updated = True
+            data = {
+                "updated": updated,
+                "liked": liked,
+                "disliked": disliked
+            }
+        return Response(data)
+
+class VideoUnLikeAPIToggle(APIView):
+    authentication_classes = (authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, pk=None, format=None):
+        if request.is_ajax():
+            obj = get_object_or_404(Upload, pk=pk)
+            url_ = obj.get_absolute_url() + "video/{}".format(id)
+            user = self.request.user
+            updated = False
+            liked = True
+            disliked = False
+            if user.is_authenticated:
+                if user in obj.dislikes.all():
+                    obj.dislikes.remove(user)
+                    disliked = False
+                else:
+                    obj.dislikes.add(user)
+                    disliked = True
+                    if user in obj.likes.all():
+                        obj.likes.remove(user)
+                        liked = False
+                updated = True
+            data = {
+                "updated": updated,
+                "liked": liked,
+                "disliked": disliked
+            }
+        return Response(data)
+

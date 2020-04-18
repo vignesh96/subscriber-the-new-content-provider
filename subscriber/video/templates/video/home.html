@@ -1,16 +1,15 @@
 {% extends 'video/base.html' %}
 {% block content %}
-    {% for upload in uploads %}
+
+{% if user.is_authenticated %}
+  {% for upload in uploads %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ upload.author.profile.image.url }}">
             <div class="media-body">
               <div class="article-metadata">
-                <a class="mr-2" href="">{{ upload.author }}</a>
                 <small class="text-muted">{{ upload.date_posted|date:"F d, Y" }}</small>
               </div>
-              <h2><a class="article-title" href="">{{ upload.title }}</a></h2>
-              <p class="article-content">{{ upload.genre }}</p>
-              <p class="article-content">{{ upload.video }}</p>
+              <h2><a class="article-title" href="{% url 'video-detail' upload.id %}">{{ upload.title }}</a></h2>
             </div>
           </article>
     {% endfor %}
@@ -35,4 +34,13 @@
       {% endif %}
 
     {% endif %}
+{% else %}
+    <h1>Welcome to Meteor Entertainment!!</h1>
+    <p> A place where viewing is experiencing </p> 
+    <br>
+    <h4> Experience starts <a href="{% url 'register' %}">here</a>!! </h4>
+    <br>
+    <img src="../../../media/home_background.jpg">
+    
+{% endif %}
 {% endblock content %}

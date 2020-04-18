@@ -3,7 +3,109 @@
 <html lang="en">
 
 <head>
+    <script src="../../static/video/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          function updateText(btn, newCount, verb){
+          btn.html(newCount + " " + verb)
+      }
+      $(".dislike-btn").click(function(e){
+            e.preventDefault()
+            var this_ = $(this)
+            var dislikeUrl = this_.attr("data-href")
+            var likeCount = parseInt('{{ object.likes.count }}')
+            var dislikeCount = parseInt('{{ object.dislikes.count }}')
+            console.log(likeCount)
+            console.log(dislikeCount)
 
+            if (dislikeUrl){
+            
+            $.ajax({
+                url: dislikeUrl,
+                method: "GET",
+                cache: true,
+                data: {},
+                success: function(data){
+                console.log(data)
+                if (data.disliked){
+                    var newCount
+                    dislikeCount++
+
+                    if (!data.liked)
+                    {
+                        likeCount--
+                        updateText($('.like-btn'), likeCount, "Like")
+                    }
+
+                    console.log(likeCount)
+                    console.log(dislikeCount)
+
+                    updateText(this_, dislikeCount, "Unlike")
+                    
+                } else {
+                    
+                    dislikeCount--
+                    console.log(dislikeCount)
+                    updateText(this_, dislikeCount, "Unlike")
+                }
+
+                }, error: function(error){
+                console.log(error)
+                console.log("error")
+                }
+            })
+            }
+        
+        })
+      
+        $(".like-btn").click(function(e){
+            e.preventDefault()
+            var this_ = $(this)
+            var likeUrl = this_.attr("data-href")
+            var likeCount = parseInt('{{ object.likes.count }}')
+            var dislikeCount = parseInt('{{ object.dislikes.count }}')
+            console.log(likeCount)
+            console.log(dislikeCount)
+
+            if (likeUrl){
+            $.ajax({
+                url: likeUrl,
+                cache: true,
+                method: "GET",
+                data: {},
+                success: function(data){
+                console.log(data)
+                if (data.liked){
+                    var newCount
+                    likeCount++
+
+                    if (!data.disliked)
+                    {
+                        dislikeCount--
+                        updateText($('.dislike-btn'), dislikeCount, "Unlike")
+                    }
+                    console.log(likeCount)
+                    console.log(dislikeCount)
+
+                    updateText(this_, likeCount, "Like")
+                    
+                } else {
+                    
+                    likeCount--
+                    console.log(likeCount)
+                    updateText(this_, likeCount, "Like")
+                }
+
+                }, error: function(error){
+                console.log(error)
+                console.log("error")
+                }
+            })
+            }
+        
+        })
+    })
+</script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -62,24 +164,25 @@
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>
+            {% if user.is_authenticated %}
+            
             <div class="col-md-4">
                 <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
+                    <h3>Categories</h3>
+                    <p class='text-muted'>
                         <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">User Uploaded Videos</li>
                             <li class="list-group-item list-group-item-light">Latest Videos</li>
-                            <li class="list-group-item list-group-item-light">Announcements</li>
-                            <li class="list-group-item list-group-item-light">Calendars</li>
-                            <li class="list-group-item list-group-item-light">etc</li>
+                            <li class="list-group-item list-group-item-light">Popular Videos</li>
+                            <li class="list-group-item list-group-item-light">Most Viewed Videos</li>
                         </ul>
                     </p>
                 </div>
             </div>
+            {% endif %}
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

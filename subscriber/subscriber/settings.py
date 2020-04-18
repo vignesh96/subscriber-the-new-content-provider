@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'video.apps.VideoConfig',
     'crispy_forms',
     'storages',
-    's3direct',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,9 +152,6 @@ AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-S3DIRECT_DESTINATIONS = {
-    'video_destination': {
-        'key': 'videos/',
-        'allowed': ['video/mkv', 'video/mp4'],
-    },
-}
+CONTENT_TYPES = ['image', 'video']
+
+MAX_UPLOAD_SIZE = 429916160
