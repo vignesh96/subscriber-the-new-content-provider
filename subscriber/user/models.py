@@ -1,17 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+# from PIL import Image
 
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=12)
-    date_of_birth = models.DateField()
-    # image = models.ImageField(default='default.jpg', 
-    #      upload_to='images/',
-    #      max_length=255,
-    #      blank=True)
+    # date_of_birth = models.DateField()
+    image = models.ImageField(default='default.jpg', 
+         upload_to='images',
+         max_length=255,
+         blank=True, verbose_name="Profile Picture")
 
     def __str__(self):
         return f'{self.user.username} Profile'
