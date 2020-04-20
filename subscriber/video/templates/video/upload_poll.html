@@ -1,0 +1,31 @@
+{% extends 'video/base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Polling section</h1>
+<article class="media content-section">
+    
+<form class="form-inline" action="{% url 'main-home' %}">
+
+    {% csrf_token %}
+    <div class="form-group">
+    {% regroup polls by question as question_list %}
+    
+    {% for question in question_list %}
+    <h4 for="inlineFormCustomSelectPref">{{ question.grouper }}</h4>
+    <select class="custom-select my-3 mr-4" id="inlineFormCustomSelectPref">
+        <option selected>Choose...</option>
+        {% for choice in question.list %}
+        <option value="{{ choice.option }}">{{ choice.option }}</option>    
+        {% endfor %}
+    </select>
+        
+    {% endfor %}
+    
+    <p><button class="btn btn-outline-info" type="submit">Vote</button>
+    </p>
+    </div>
+    </form>
+</article>
+{% endif %}
+{% endblock content %}

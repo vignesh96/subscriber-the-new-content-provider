@@ -12,7 +12,7 @@
               <h2><a class="article-title" href="{% url 'video-detail' upload.id %}">{{ upload.title }}</a></h2>
               
               <p><label id="like_count">{{ upload.likes.count }}</label> Like&nbsp;
-                <label id="dislike_count">{{ upload.dislikes.count }}</label> Unlike&nbsp;
+                <label id="dislike_count">{{ upload.dislikes.count }}</label> Dislike&nbsp;
                 {{ upload.views }} Views</p>
             </div>
           </article>
@@ -42,7 +42,7 @@
     <h1>Welcome to Meteor Entertainment!!</h1>
     <p> A place where viewing is experiencing </p> 
     <br>
-    <h4> Experience starts <a href="{% url 'register' %}">here</a>!! </h4>
+    <h4>Your journey of Awesomeness starts <a href="{% url 'register' %}">here</a>!! </h4>
     <br>
     <img src="../../../media/home_background.jpg">
     
