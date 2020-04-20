@@ -40,13 +40,13 @@
                     console.log(likeCount)
                     console.log(dislikeCount)
 
-                    updateText(this_, dislikeCount, "Unlike")
+                    updateText(this_, dislikeCount, "Dislike")
                     
                 } else {
                     
                     dislikeCount--
                     console.log(dislikeCount)
-                    updateText(this_, dislikeCount, "Unlike")
+                    updateText(this_, dislikeCount, "Dislike")
                 }
 
                 }, error: function(error){
@@ -82,7 +82,7 @@
                     if (!data.disliked)
                     {
                         dislikeCount--
-                        updateText($('.dislike-btn'), dislikeCount, "Unlike")
+                        updateText($('.dislike-btn'), dislikeCount, "Dislike")
                     }
                     console.log(likeCount)
                     console.log(dislikeCount)
@@ -172,13 +172,15 @@
                     <p class='text-muted'>
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-light">
-                                <a href="{% url 'user-videos' user %}">User Uploaded Videos</a></li>
+                                <a href="{% url 'user-videos' user %}">My Uploaded Videos</a></li>
                             <li class="list-group-item list-group-item-light">
                                 <a href="{% url 'main-home' %}">Latest Videos</a></li>
                             <li class="list-group-item list-group-item-light">
                                 <a href="{% url 'popular-videos' %}">Popular Videos</a></li>
                             <li class="list-group-item list-group-item-light">
                                 <a href="{% url 'most-viewed-videos' %}">Most Viewed Videos</a></li>
+                            <li class="list-group-item list-group-item-light">
+                                <a href="{% url 'poll-video' %}">Vote for the best</a></li>    
                         </ul>
                     </p>
                 </div>
@@ -189,6 +191,10 @@
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+        
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"

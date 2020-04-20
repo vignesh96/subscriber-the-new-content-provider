@@ -13,7 +13,7 @@ class Upload(models.Model):
     s3_url = models.CharField(max_length=100, blank=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='video_likes')
     dislikes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='video_dislikes')
-    content = models.TextField(default='')
+    content = models.TextField(default='', verbose_name="Description")
     video = models.FileField(upload_to='videos', null=True, validators=[validate_file_size])
     views = models.IntegerField(default=0)
     def __str__(self):
@@ -31,3 +31,9 @@ class Upload(models.Model):
     def incrementViewCount(self):
         self.views += 1
         self.save()
+
+class Poll(models.Model):
+    option = models.CharField(max_length=400, default="")
+    polls = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='video_polls')
+    poll_group = models.CharField(default="", max_length=200, blank=True)
+    question = models.CharField(default="", max_length=200, blank=True)

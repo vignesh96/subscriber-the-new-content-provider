@@ -1,5 +1,44 @@
 {% extends 'video/base.html' %}
 {% block content %}
+<script>
+$(document).ready(function(){
+    
+    $('a.share').each(function (){
+        var i = $(this);            
+        i.bind('click', function(){
+            i.popover({
+                html:true,
+                title:function() {
+      return $("#popover-head").html();
+    },
+                content:function() {
+      return $("#popover-content").html();
+    }
+            }).popover('show');   
+        
+            $.ajax({
+                type: "POST",
+                url: "/echo/json/",
+                data: {
+                    json: JSON.stringify({
+                        text: 'new Data to replace existing content',
+                        par1: 'another text'
+                    }),
+                    delay: null
+                },
+                cache: false,
+                success: function(data) {
+                    i.attr('data-content', data.text);
+                    i.popover('show');
+                }
+            });
+        });
+        i.bind('mouseover', function(){
+            i.popover('hide');
+        });
+    });
+});
+</script>
 
 {% if user.is_authenticated %}
     <article class="media content-section">
@@ -10,8 +49,7 @@
                 <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
                 {% if object.author == user %}
                     <div>
-                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="">Update</a>
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="">Delete</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'video-delete' object.id %}">Delete</a>
                     </div>
                 {% endif %}
             </div>
@@ -21,9 +59,23 @@
                 <source src="{{ object.video.url }}" type="video/mkv">
                 Your browser does not support HTML5 video.
             </video>
-            <p><a class='like-btn' data-href='{{ object.get_like_url }}' data-likes='{{ object.likes.count }}' href='{{ object.get_like_url }}'>{{ object.likes.count }} Like</a>&nbsp;
-                <a class='dislike-btn' data-href='{{ object.get_unlike_url }}' data-likes='{{ object.dislikes.count }}' href='{{ object.get_unlike_url }}'>{{ object.dislikes.count }} Unlike</a>&nbsp;
-                {{ object.views }} Views</p>
+            <p>
+                <a class='like-btn' data-href='{{ object.get_like_url }}' data-likes='{{ object.likes.count }}' href='{{ object.get_like_url }}'>{{ object.likes.count }} Like</a>&nbsp;
+                <a class='dislike-btn' data-href='{{ object.get_unlike_url }}' data-likes='{{ object.dislikes.count }}' href='{{ object.get_unlike_url }}'>{{ object.dislikes.count }} Dislike</a>&nbsp;
+                {{ object.views }} Views&nbsp;
+                <a class="share" rel="popover" href="#" data-content="" data-original-title="">Share</a>
+                <div id="popover-head" class="hide">Share Video</div>
+                <div id="popover-content" class="hide">
+                    <form id="myform" class="form-inline" role="form" action="{% url 'share-video' object.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input id="email" type="email" placeholder="Enter Email-ID" name="email" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-warning">Share</button>
+                    </form>
+                </div>
+            </p>
+                
             <p class="article-content">{{ object.content }}</p>
         </div>
     </article>
